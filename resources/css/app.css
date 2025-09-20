@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@layer base {
+    *,
+    ::before,
+    ::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .font-bengali {
+        font-family: var(--font-bengali);
+    }
+}
+
+@theme {
+    --font-sans: "Quicksand", ui-sans-serif, system-ui, sans-serif;
+    --font-bengali: "Hind Siliguri", ui-sans-serif, system-ui, sans-serif;
+
+    --color-bg: #121212;
+    --color-surface: #181818;
+    --color-text-primary: #f5f5f5;
+    --color-text-secondary: #cfcfcf;
+
+    --color-main-border: #242424;
+
+    --color-brand-red: #e53935;
+    --color-brand-orange: #ff9800;
+    --color-brand-green: #4caf50;
+
+    --color-accent-leaf: #4caf50;
+    --color-accent-yellow: #ffcc33;
+    --color-accent-brown: #8d6e63;
+
+    --color-neutral-dark: #121212;
+    --color-neutral-light: #1e1e1e;
+    --color-neutral-white: #ffffff;
+}
+
