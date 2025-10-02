@@ -13,6 +13,7 @@ class Product extends Model
         'title',
         'description',
         'short_description',
+        'image',
         'regular_price',
         'sell_price',
         'stock',

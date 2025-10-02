@@ -1,1 +1,60 @@
-*.sqlite*
+# --------------------------------------------------
+# Laravel & PHP
+# --------------------------------------------------
+/vendor/
+/bootstrap/cache/
+/storage/*.key
+/storage/app/public
+/storage/debugbar
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Environment & Local Config
+.env
+.env.*.local
+.phpunit.result.cache
+
+# --------------------------------------------------
+# Node / Vite / Front-end
+# --------------------------------------------------
+/node_modules/
+/public/build/
+/public/hot
+/public/mix-manifest.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Tailwind CSS build artifacts
+*.css.map
+*.postcss
+
+# --------------------------------------------------
+# Databases
+# (You said MySQL—keep .sql dumps if you want,
+# but ignore SQLite files just in case.)
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.db
+*.db-journal
+
+# --------------------------------------------------
+# IDE & OS files
+# --------------------------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.log
+
+# --------------------------------------------------
+# Misc
+# --------------------------------------------------
+/public/storage   # symlink target if you run `artisan storage:link`
