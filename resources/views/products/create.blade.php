@@ -34,12 +34,13 @@
                 class="mt-1 block w-full border border-main-border bg-bg text-text-primary rounded-md shadow-sm p-2 focus:border-brand-red focus:ring-brand-red @error('short_description') border-red-500 @enderror">{{ old('short_description') }}</textarea>
             @error('short_description') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
-        
+
         <div>
-            <label for="image" class="block text-sm font-medium text-text-secondary">Product Image</label>
-            <input type="file" name="image" id="image" required
-                class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none @error('image') border-red-500 @enderror">
-            @error('image') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            <label for="images" class="block text-sm font-medium text-text-secondary">Product Images (Max 5)</label>
+            <input type="file" name="images[]" id="images" required multiple
+                class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none @error('images') border-red-500 @enderror @error('images.*') border-red-500 @enderror">
+            @error('images') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            @error('images.*') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 
         <div>

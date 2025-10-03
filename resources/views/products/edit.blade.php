@@ -36,22 +36,42 @@
             @error('short_description') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
         
-        <div>
-            <label for="image" class="block text-sm font-medium text-text-secondary">Product Image</label>
+        {{-- DISPLAY CURRENT IMAGES WITH DELETE OPTION --}}
+        <div class="space-y-4">
+            <label class="block text-sm font-medium text-text-secondary">Current Images (Check to Delete)</label>
             
-            @if ($product->main_image)
-            <div class="mt-2 mb-3">
-                <p class="text-xs text-text-secondary mb-1">Current Image:</p>
-                <img src="{{ asset('storage/' . $product->main_image) }}" alt="Current Product Image" class="w-20 h-20 object-cover rounded-md border border-main-border">
-            </div>
+            @if ($product->images->isEmpty())
+                <p class="text-xs text-text-secondary">No images currently uploaded for this product.</p>
+            @else
+                <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-4">
+                    @foreach ($product->images as $image)
+                        <div class="relative group border border-main-border p-1 rounded-md">
+                            {{-- Image Preview --}}
+                            <img src="{{ asset('storage/' . $image->path) }}" alt="Product Image" 
+                                class="w-full h-20 object-cover rounded-sm">
+                            
+                            {{-- Delete Checkbox Overlay --}}
+                            <label class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-sm">
+                                <input type="checkbox" name="delete_images[]" value="{{ $image->id }}" class="form-checkbox h-5 w-5 text-brand-red bg-bg border-main-border focus:ring-brand-red">
+                                <span class="ml-2 text-white text-xs font-semibold">Delete</span>
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+                <p class="text-xs text-text-secondary mt-2">Check the box on an image and click 'Update Product' to permanently remove it.</p>
             @endif
-
-            <input type="file" name="image" id="image" 
-                class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none @error('image') border-red-500 @enderror">
-            <p class="text-xs text-text-secondary mt-1">Leave blank to keep the current image.</p>
-            @error('image') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 
+        {{-- NEW MULTI-IMAGE UPLOAD INPUT --}}
+        <div>
+            <label for="images" class="block text-sm font-medium text-text-secondary">Add New Product Images (Max 5 total)</label>
+            <input type="file" name="images[]" id="images" multiple
+                class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none @error('images') border-red-500 @enderror @error('images.*') border-red-500 @enderror">
+            <p class="text-xs text-text-secondary mt-1">Select one or more new images to add to the gallery.</p>
+            @error('images') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            @error('images.*') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+        </div>
+        
         <div>
             <label for="stock" class="block text-sm font-medium text-text-secondary">Stock Quantity</label>
             <input type="number" name="stock" id="stock" required
