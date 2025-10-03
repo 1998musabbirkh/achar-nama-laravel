@@ -30,9 +30,8 @@
         <table class="min-w-full divide-y divide-main-border">
             <thead>
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Title</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Regular Price</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Selling Price</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Product Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Price</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Stock</th>
                     <th class="px-6 py-3 text-text-secondary">Actions</th>
                 </tr>
@@ -40,16 +39,26 @@
             <tbody class="bg-surface divide-y divide-main-border">
                 @forelse ($products as $product)
                 <tr class="hover:bg-bg transition duration-150">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium font-bengali text-text-primary">{{ $product->title }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">${{ number_format($product->regular_price, 2) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium font-bengali text-text-primary">{{ $product->product_name }}</td>
+
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
-                        {{ $product->sell_price ? '$' . number_format($product->sell_price, 2) : '—' }}
+                        @if ($product->variants->isNotEmpty())
+                        ${{ number_format($product->variants->first()->regular_price, 2) }}
+                        @else
+                        ${{ number_format($product->regular_price, 2) }}
+                        @endif
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">{{ $product->stock }}</td>
+
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                        @if ($product->variants->isNotEmpty())
+                        {{ $product->variants->sum('stock') }}
+                        @else
+                        {{ $product->stock }}
+                        @endif
+                    </td>
+
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-3">
                         <a href="{{ route('products.edit', $product) }}" class="text-brand-red hover:text-red-700">Edit</a>
-
-                        {{-- Delete Form (Requires DELETE method, hidden in a form) --}}
                         <form action="{{ route('products.destroy', $product) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                             @csrf
                             @method('DELETE')
@@ -59,7 +68,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="px-6 py-4 text-center text-sm text-text-secondary">No products found.</td>
+                    <td colspan="4" class="px-6 py-4 text-center text-sm text-text-secondary">No products found.</td>
                 </tr>
                 @endforelse
             </tbody>
