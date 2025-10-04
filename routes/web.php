@@ -17,14 +17,16 @@ Route::middleware('auth', 'admin')->group(function () {
         return view('dashboard', compact('user'));
     })->name('dashboard');
 
-    Route::resource('products', ProductController::class);
+    Route::resource('products', ProductController::class)->except(['show']); 
 });
+
+Route::get('/product/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('product.show');
 
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-//Backend Routes
+
 Route::get('/auth/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('google.login');
 
 Route::get('/auth/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);

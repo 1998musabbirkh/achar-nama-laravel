@@ -48,11 +48,9 @@ class ProductController extends Controller
             'subtitle'                => 'required|string|max:255',
             'primary_description'     => 'required|string',
             'sub_description'         => 'required|string|max:500',
-            // --- UPDATED IMAGE VALIDATION ---
             'primary_image_file'      => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'gallery_images'          => 'nullable|array|max:4', // 1 main + max 4 gallery = max 5 total
+            'gallery_images'          => 'nullable|array|max:4', 
             'gallery_images.*'        => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            // --------------------------------
             'variant_name.*'          => 'required|string|max:255',
             'variant_regular_price.*' => 'required|numeric|min:0',
             'variant_sell_price.*'    => 'nullable|numeric|min:0',
