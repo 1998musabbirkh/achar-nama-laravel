@@ -17,10 +17,41 @@
     </div>
     @endif
 
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-semibold text-text-primary">Orders List</h1>
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-3xl font-semibold text-text-primary">All Customer Orders</h1>
         {{-- No Create button needed here, as customers create orders --}}
     </div>
+    
+    {{-- START: Dropdown Status Filter (Replaced the horizontal navigation) --}}
+    <div class="flex items-center space-x-3 text-sm border-b pb-2 mb-6">
+        <span class="text-text-primary font-semibold">Filter by Status:</span>
+        
+        <form method="GET" action="{{ route('orders.index') }}" class="inline-block">
+            
+            @php
+            $currentStatus = request('status');
+            $statuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+            @endphp
+
+            <select name="status"
+                class="border-main-border text-text-primary bg-bg rounded-md text-base py-1 px-3 focus:ring-brand-red focus:border-brand-red"
+                onchange="this.form.submit()">
+                
+                {{-- Option to show ALL orders --}}
+                <option value="" @unless($currentStatus) selected @endunless>
+                    All Orders
+                </option>
+                
+                {{-- Status Filter Options --}}
+                @foreach ($statuses as $status)
+                    <option value="{{ $status }}" @if($currentStatus == $status) selected @endif>
+                        {{ ucfirst($status) }}
+                    </option>
+                @endforeach
+            </select>
+        </form>
+    </div>
+    {{-- END: Dropdown Status Filter --}}
 
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-main-border">
@@ -49,7 +80,7 @@
                         {{ $order->created_at->format('Y-m-d H:i') }}
                     </td>
 
-                    {{-- STATUS DROPDOWN --}}
+                    {{-- STATUS DROPDOWN (This correctly remains here for quick status updates) --}}
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
                         <form action="{{ route('orders.update', $order) }}" method="POST" id="status-form-{{ $order->id }}">
                             @csrf

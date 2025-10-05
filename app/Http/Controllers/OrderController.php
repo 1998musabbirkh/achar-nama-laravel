@@ -10,16 +10,49 @@ use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('items')
-            ->latest()
-            ->paginate(20);
 
+        $filterStatus = $request->query('status');
+
+        $query = Order::with('items')->latest();
+
+        $validStatuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+
+        if ($filterStatus && in_array($filterStatus, $validStatuses)) {
+
+            $dbStatus = ($filterStatus === 'delivered' ? 'completed' : $filterStatus);
+
+            $query->where('status', $dbStatus);
+        }
+
+        $orders = $query->paginate(20);
 
         return view('orders.index', compact('orders'));
     }
 
+     public function track()
+    {
+        return view('orders.track_search');
+    }
+
+    public function trackDetails(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|numeric',
+        ], [
+            'order_id.required' => 'অনুগ্রহ করে অর্ডার আইডি প্রদান করুন।',
+            'order_id.numeric' => 'অর্ডার আইডি অবশ্যই সংখ্যা হতে হবে।',
+        ]);
+
+        $order = Order::with('items.productVariant')->find($request->order_id);
+
+        if (!$order) {
+            return back()->withInput()->with('error', 'এই অর্ডার আইডি দিয়ে কোনো অর্ডার পাওয়া যায়নি।');
+        }
+
+        return view('orders.track_details', compact('order'));
+    }
 
     public function store(Request $request)
     {

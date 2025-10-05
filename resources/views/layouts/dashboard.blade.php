@@ -26,9 +26,9 @@
                     <x-heroicon-o-bell class="w-6 h-6 text-text-primary cursor-pointer hover:text-brand-green transition-colors duration-300" />
                 </div>
                 <button>
-                    <img src="{{ auth()->user()->image }}" 
-                         alt="{{ auth()->user()->name }}" 
-                         class="w-8 h-8 rounded-full cursor-pointer">
+                    <img src="{{ auth()->user()->image }}"
+                        alt="{{ auth()->user()->name }}"
+                        class="w-8 h-8 rounded-full cursor-pointer">
                 </button>
             </div>
         </div>
@@ -49,7 +49,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="/orders" class="block py-2 px-3 text-text-primary hover:bg-brand-red hover:text-white rounded-sm transition duration-200 ease-in-out">
+                        <a href="{{ route('orders.index') }}" class="block py-2 px-3 text-text-primary hover:bg-brand-red hover:text-white rounded-sm transition duration-200 ease-in-out">
                             Orders
                         </a>
                     </li>

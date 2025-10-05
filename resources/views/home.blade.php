@@ -90,7 +90,10 @@
                 @endif
 
                 <div>
-                    <h3 class="text-text-primary font-bengali text-sm md:text-base">{{ $product->product_name }}</h3>
+                    <h3 class="text-text-primary font-bengali text-sm md:text-base">
+                        {{ mb_strimwidth($product->product_name, 0, 20, '...') }}
+                    </h3>
+
 
                     <p class="font-bold font-sans flex flex-col items-center justify-center space-y-0.5">
                         @if ($hasSellPrice)
