@@ -151,20 +151,20 @@
         অর্ডার সম্পন্ন করুন
     </h2>
 
-    <form action="#" method="POST" class="bg-surface p-6 md:p-10 rounded-lg shadow-xl">
+    <form action="{{ route('orders.store') }}" method="POST" class="bg-surface p-6 md:p-10 rounded-lg shadow-xl">
         @csrf
 
         <div id="variant-selection-area" class="space-y-4">
             <h3 class="font-bengali text-xl font-semibold mb-4 text-brand-green">পণ্য ও ওজন নির্বাচন</h3>
 
             @php
-                $defaultVariant = $product->variants->first();
-                $defaultPrice = $defaultVariant->sell_price ?? $defaultVariant->regular_price ?? 0;
+            $defaultVariant = $product->variants->first();
+            $defaultPrice = $defaultVariant->sell_price ?? $defaultVariant->regular_price ?? 0;
             @endphp
 
             <input type="hidden" name="variant_id" id="selected_variant_id" value="{{ $defaultVariant->id ?? '' }}" required>
             <input type="hidden" name="quantity" id="selected_quantity" value="1" required>
-            <input type="hidden" id="product_name_for_summary" value="{{ $product->product_name }}">
+            <input type="hidden" name="product_name_for_summary" id="product_name_for_summary" value="{{ $product->product_name }}">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
@@ -247,21 +247,21 @@
                     <div class="mb-4">
                         <label class="block text-text-primary font-bengali mb-2" for="customer_name">নাম</label>
                         <input type="text" name="customer_name" id="customer_name" value="{{ old('customer_name') }}" required
-                            class="w-full border border-dashed border-brand-red p-3 rounded-md focus:border-brand-red">
+                            class="text-text-secondary w-full border border-dashed border-brand-red p-3 rounded-md focus:border-brand-red">
                         @error('customer_name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
                     <div class="mb-4">
                         <label class="block text-text-primary font-bengali mb-2" for="phone">মোবাইল নম্বর</label>
                         <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required
-                            class="w-full border border-dashed border-brand-red p-3 rounded-sm focus:border-brand-red">
+                            class="text-text-secondary w-full border border-dashed border-brand-red p-3 rounded-sm focus:border-brand-red">
                         @error('phone') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label class="block text-text-primary font-bengali mb-2" for="address">ডেলিভারি ঠিকানা</label>
+                    <label class="block text-text-primary font-bengali mb-2" for="address">ঠিকানা (থানা, জেলা, রোড ...)</label>
                     <textarea name="address" id="address" rows="3" required
-                        class="w-full border border-brand-red p-3 rounded-sm focus:border-brand-red border-dashed">{{ old('address') }}</textarea>
+                        class="text-text-secondary w-full border border-brand-red p-3 rounded-sm focus:border-brand-red border-dashed">{{ old('address') }}</textarea>
                     @error('address') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                 </div>
 
