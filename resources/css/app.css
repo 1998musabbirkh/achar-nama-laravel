@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -44,3 +44,66 @@
     --color-neutral-white: #ffffff;
 }
 
+@layer components {
+    /* --- Custom Blog Post Styles within the .prose container --- */
+
+    .prose {
+        /* Apply Bengali font to all content inside the prose block */
+        font-family: var(--font-bengali);
+        color: var(--color-text-primary);
+        line-height: 1.8; /* Improve readability for Bengali text */
+    }
+
+    /* Styling for H2 headings */
+    .prose h2 {
+        color: var(--color-brand-red); /* Use brand red for emphasis */
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        /* Subtle line to separate sections */
+        border-bottom: 1px solid var(--color-main-border);
+    }
+
+    /* Styling for paragraphs (ensures consistent Bengali font) */
+    .prose p {
+        font-family: var(--font-bengali);
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Styling for Links (must look different) */
+    .prose a {
+        color: var(--color-brand-red); /* Highlight links in brand red */
+        font-weight: 600;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+    }
+
+    .prose a:hover {
+        color: var(--color-brand-orange); /* Change color on hover */
+        text-decoration: underline;
+    }
+
+    /* Styling for Unordered Lists */
+    .prose ul {
+        list-style-type: disc; /* Use discs for list items */
+        padding-left: 1.5em; /* Add padding for markers */
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Styling for List Items */
+    .prose li {
+        font-family: var(--font-bengali);
+        color: var(--color-text-secondary);
+        margin-bottom: 0.5rem;
+    }
+
+    /* Ensure bullets/numbers are also themed */
+    .prose :where(ul > li)::before {
+        background-color: var(
+            --color-brand-red
+        ); /* Make the bullets brand red */
+    }
+}

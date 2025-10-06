@@ -7,6 +7,9 @@
     <img src="{{ Vite::asset('resources/images/banner.webp') }}" alt="" class="rounded-sm">
 </div>
 
+{{-- ------------------------------------------------------------------------------------------------------ --}}
+{{-- OUR PRODUCTS SECTION (Existing Code) --}}
+{{-- ------------------------------------------------------------------------------------------------------ --}}
 <div class="max-w-[1200px] mx-auto px-4 md:p-0 mt-8">
 
     <h2 class="text-center font-semibold text-brand-red text-xl md:text-2xl lg:text-4xl font-sans mb-4 uppercase">Our Products</h2>
@@ -22,35 +25,28 @@
         @foreach ($products as $product)
         <div class="p-3 sm:p-4 border border-main-border rounded-sm flex flex-col gap-2 md:gap4 text-center relative">
 
-            {{-- Retrieve the primary image based on sort_order --}}
             @php
             // --- Price Aggregation and Discount Calculation ---
-
-            // 1. Regular Prices
             $regularPrices = $product->variants
             ->map(fn($v) => $v->regular_price)
             ->filter(fn($p) => is_numeric($p));
 
-            // 2. Selling Prices (if a sell_price exists, we know there's a deal)
             $sellingPricesOnly = $product->variants
             ->map(fn($v) => $v->sell_price)
             ->filter(fn($p) => is_numeric($p));
 
             $hasSellPrice = $sellingPricesOnly->isNotEmpty();
 
-            // Calculate the discount percentage only if sell prices exist
             $discountPercent = 0;
             if ($hasSellPrice) {
             $minRegular = $regularPrices->min();
             $minSelling = $sellingPricesOnly->min();
 
-            // Calculate percentage based on the difference between the cheapest regular and cheapest selling price
             if ($minRegular > 0 && $minSelling < $minRegular) {
                 $discountPercent=round((($minRegular - $minSelling) / $minRegular) * 100);
                 }
                 }
 
-                // 3. Format Display Strings
                 $regularPriceDisplay='' ;
                 if ($regularPrices->isNotEmpty()) {
                 $minRegularFmt = number_format($regularPrices->min());
@@ -123,4 +119,64 @@
     @endif
 
 </div>
+
+---
+
+{{-- ------------------------------------------------------------------------------------------------------ --}}
+{{-- RECENT BLOG POSTS SECTION (New Code) --}}
+{{-- ------------------------------------------------------------------------------------------------------ --}}
+
+@if (isset($posts) && $posts->isNotEmpty())
+<div class="max-w-[1200px] mx-auto px-4 md:p-0 mt-12 mb-8">
+    <h2 class="text-center font-semibold text-brand-red text-xl md:text-2xl lg:text-4xl font-sans mb-6 uppercase">Latest Blog</h2>
+    
+    {{-- Grid layout for blog cards --}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        @foreach ($posts as $post)
+            <div class="border border-main-border rounded-sm overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                
+                {{-- 1. Image (Ratio preserved) --}}
+                @if ($post->image)
+                <img src="{{ asset('storage/' . $post->image) }}"
+                    alt="{{ $post->title }}"
+                    class="w-full h-48 object-cover object-center">
+                @else
+                <img src="https://via.placeholder.com/400x300?text=Blog+Image"
+                    alt="Placeholder Image"
+                    class="w-full h-48 object-cover object-center">
+                @endif
+                
+                <div class="p-4 flex flex-col flex-grow">
+                    {{-- 2. Title (Linked) --}}
+                    <h3 class="text-text-primary font-bold text-lg mb-2 flex-shrink-0 font-bengali">
+                        {{-- The title is a link using the blog.show route with the post's slug --}}
+                        <a href="{{ route('blog.show', $post->slug) }}" class="hover:text-brand-red transition-colors duration-200">
+                            {{ mb_strimwidth($post->title, 0, 60, '...') }}
+                        </a>
+                    </h3>
+                    
+                    {{-- 3. Body Snippet --}}
+                    {{-- Strips HTML and limits the length for a clean snippet --}}
+                    <p class="text-text-secondary text-sm mb-4 flex-grow font-bengali">
+                        {{ mb_strimwidth(strip_tags($post->body), 0, 120, '...') }}
+                    </p>
+                    
+                    {{-- Read More Link --}}
+                    <a href="{{ route('blog.show', $post->slug) }}" class="text-brand-red text-sm font-semibold hover:text-red-700 transition duration-200 mt-auto">
+                        Read More &rarr;
+                    </a>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    
+    <div class="text-center mt-8">
+        <a href="{{ route('blog.index') }}" class="inline-block px-6 py-2 border border-brand-red text-brand-red hover:bg-brand-red hover:text-white rounded-sm transition duration-300 font-sans">
+            View All Blogs
+        </a>
+    </div>
+
+</div>
+@endif
+
 @endsection

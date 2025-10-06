@@ -3,9 +3,9 @@
 @section('title', 'Track Your Order')
 
 @section('content')
-<div class="max-w-md mx-auto my-12 p-6 bg-surface rounded-lg border border-main-border shadow-xl">
+<div class="max-w-md mx-6  md:mx-auto my-12 p-6 bg-surface rounded-lg border border-main-border shadow-xl">
     <h1 class="text-2xl font-bengali font-bold mb-6 text-brand-red text-center">আপনার অর্ডার ট্র্যাক করুন</h1>
-    <p class="text-center text-text-secondary mb-8">অর্ডারের সর্বশেষ অবস্থা জানতে নিচে আপনার অর্ডার আইডি দিন।</p>
+    <p class="text-center text-text-secondary mb-8 font-bengali">অর্ডারের সর্বশেষ অবস্থা জানতে নিচে আপনার অর্ডার আইডি দিন।</p>
 
     @if (session('error'))
         <div class="bg-red-100 border border-red-400 text-red-700 font-bengali px-4 py-3 rounded relative mb-4" role="alert">

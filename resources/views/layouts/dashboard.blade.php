@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | @yield('title')</title>
+    @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 </head>
 
@@ -44,8 +45,8 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="/categories" class="block py-2 px-3 text-text-primary hover:bg-brand-red hover:text-white rounded-sm transition duration-200 ease-in-out">
-                            Categories
+                        <a href="{{ route('admin.posts.index') }}" class="block py-2 px-3 text-text-primary hover:bg-brand-red hover:text-white rounded-sm transition duration-200 ease-in-out">
+                            Blog Posts
                         </a>
                     </li>
                     <li class="mb-2">
