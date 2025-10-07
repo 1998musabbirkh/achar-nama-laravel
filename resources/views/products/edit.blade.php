@@ -7,7 +7,10 @@
     <h1 class="text-3xl font-semibold text-text-primary mb-6">Edit Product: {{ $product->title }}</h1>
 
     <a href="{{ route('products.index') }}" class="text-brand-red hover:text-red-700 flex items-center mb-4">
-        <x-heroicon-o-arrow-left class="w-4 h-4 mr-1" /> Back to Products
+        {{-- Assuming x-heroicon-o-arrow-left is available --}}
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg> Back to Products
     </a>
 
     <form action="{{ route('products.update', $product) }}" method="POST" class="space-y-6" enctype="multipart/form-data" id="edit-product-form" data-existing-images="{{ $product->images->count() }}">
@@ -51,8 +54,20 @@
 
         <h2 class="text-xl font-semibold text-text-primary border-b pb-2 mb-4">Product Images</h2>
 
+        {{-- NEW: Dedicated Primary Image Upload Field --}}
+        <div class="mb-6">
+            <label for="new_primary_image" class="block text-sm font-medium text-text-secondary">
+                Upload New Primary Image (Optional)
+            </label>
+            <input type="file" name="new_primary_image" id="new_primary_image"
+                class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none">
+            <p class="text-xs text-brand-red mt-1">
+                Uploading a file here will **overwrite** the current primary image.
+            </p>
+        </div>
+
         <div class="space-y-4">
-            <label class="block text-sm font-medium text-text-secondary">Current Images</label>
+            <label class="block text-sm font-medium text-text-secondary">Current Gallery Images</label>
 
             @if ($product->images->isEmpty())
             <p class="text-xs text-text-secondary">No images currently uploaded for this product.</p>
@@ -64,6 +79,17 @@
                         <img src="{{ asset('storage/' . $image->path) }}" alt="Product Image"
                             class="w-full h-20 object-cover rounded-sm">
 
+                        {{-- NEW: Radio button to set an existing image as Primary --}}
+                        <div class="absolute top-1 left-1 z-10">
+                            <label class="flex items-center space-x-1 bg-white bg-opacity-75 px-1 py-0.5 rounded-sm">
+                                <input type="radio" name="primary_image_id" value="{{ $image->id }}"
+                                    class="form-radio h-4 w-4 text-brand-green border-main-border focus:ring-brand-green"
+                                    {{ $product->primary_image?->id === $image->id ? 'checked' : '' }}>
+                                <span class="text-xs text-text-primary font-semibold">Primary</span>
+                            </label>
+                        </div>
+
+                        {{-- Existing Delete Checkbox --}}
                         <label class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-sm">
                             <input type="checkbox" name="delete_images[]" value="{{ $image->id }}" class="form-checkbox h-5 w-5 text-brand-red bg-bg border-main-border focus:ring-brand-red">
                             <span class="ml-2 text-white text-xs font-semibold">Delete</span>
@@ -74,14 +100,14 @@
             </div>
 
             <p class="text-xs text-text-secondary mt-2">
-                Hover and check 'Delete' on an image to remove it when updating the product.
+                Check 'Delete' or select the **Primary** radio button to manage current images.
             </p>
             @endif
         </div>
 
 
         <div>
-            <label for="images" class="block text-sm font-medium text-text-secondary">Add New Product Images (Max 5 total)</label>
+            <label for="images" class="block text-sm font-medium text-text-secondary">Add New Gallery Images (Max 5 total)</label>
             <input type="file" name="images[]" id="images" multiple
                 class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none">
             <p class="text-xs text-text-secondary mt-1">Select one or more new images to add to the gallery.</p>
@@ -121,7 +147,9 @@
         </div>
 
         <button type="button" id="add-variant-btn" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-brand-red hover:bg-red-700 transition duration-300">
-            <x-heroicon-o-plus class="w-4 h-4 mr-1" /> Add Variant
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg> Add Variant
         </button>
 
         <div class="pt-6">
