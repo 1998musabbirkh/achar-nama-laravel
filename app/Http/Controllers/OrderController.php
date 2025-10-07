@@ -31,7 +31,7 @@ class OrderController extends Controller
         return view('orders.index', compact('orders'));
     }
 
-     public function track()
+    public function track()
     {
         return view('orders.track_search');
     }
@@ -100,13 +100,30 @@ class OrderController extends Controller
 
             DB::commit();
 
-            return redirect()->route('order.success')->with('success', 'আপনার অর্ডার সফলভাবে সম্পন্ন হয়েছে!');
+            return redirect()->route('order.success')->with('order_id', $order->id)->with('success', 'আপনার অর্ডার সফলভাবে সম্পন্ন হয়েছে!');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("Order creation failed: " . $e->getMessage(), ['request' => $request->all()]);
 
             return back()->withInput()->with('error', 'অর্ডার সম্পন্ন করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
         }
+    }
+
+    public function success(Request $request)
+    {
+        $orderId = $request->session()->get('order_id');
+
+        if (!$orderId) {
+            return redirect('/')->with('error', 'No order found.');
+        }
+
+        $order = Order::with('items.productVariant')->find($orderId);
+
+        if (!$order) {
+            return redirect('/')->with('error', 'Order not found.');
+        }
+
+        return view('orders.success', compact('order'));
     }
 
     public function show(Order $order)

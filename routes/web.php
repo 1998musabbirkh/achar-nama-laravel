@@ -18,6 +18,7 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
+
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/{post:slug}', [PostController::class, 'show'])->name('blog.show');
 

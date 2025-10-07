@@ -18,9 +18,8 @@
 
             <ul class="hidden md:flex gap-8 font-sans">
                 <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="/">Home</a></li>
-                <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="">Blogs</a></li>
+                <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="{{ route('blog.index') }}">Blogs</a></li>
                 <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="{{ route('order.track') }}">Track Order</a></li>
-                <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="">Contact</a></li>
             </ul>
 
             <div class="flex md:hidden items-center gap-4">
@@ -47,13 +46,10 @@
                     <a href="/" class="block px-6 py-4 text-sm">Home</a>
                 </li>
                 <li class="border-b border-main-border text-brand-red font-medium text-lg transition-all duration-300 hover:text-brand-orange hover:bg-surface-alt">
-                    <a href="" class="block px-6 py-4 text-sm">Blogs</a>
+                    <a href="{{ route('blog.index') }}" class="block px-6 py-4 text-sm">Blogs</a>
                 </li>
                 <li class="border-b border-main-border text-brand-red font-medium text-lg transition-all duration-300 hover:text-brand-orange hover:bg-surface-alt">
                     <a href="{{ route('order.track') }}" class="block px-6 py-4 text-sm">Track Order</a>
-                </li>
-                <li class="border-b border-main-border text-brand-red font-medium text-lg transition-all duration-300 hover:text-brand-orange hover:bg-surface-alt">
-                    <a href="" class="block px-6 py-4 text-sm">Contact</a>
                 </li>
             </ul>
         </div>
@@ -67,13 +63,13 @@
         <div class="max-w-[1200px] mx-auto px-4 text-center font-sans">
 
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="[FACEBOOK_LINK_HERE]" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-brand-red transition-colors duration-200">
+                <a href="https://www.facebook.com/acharnama" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-brand-red transition-colors duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook-icon lucide-facebook">
                         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                     </svg>
                 </a>
 
-                <a href="[INSTAGRAM_LINK_HERE]" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-brand-red transition-colors duration-200">
+                <a href="https://www.instagram.com/1998acharnama/" target="_blank" rel="noopener noreferrer" class="text-text-primary hover:text-brand-red transition-colors duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram-icon lucide-instagram">
                         <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />

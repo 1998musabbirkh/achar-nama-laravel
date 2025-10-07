@@ -26,7 +26,7 @@
             </p>
 
             <div class="flex gap-4 justify-center md:justify-start order-1 md:order-none">
-                <a href="#" class="px-5 text-center py-2 bg-brand-red hover:bg-brand-orange transition-colors duration-300 text-white font-bengali text-sm md:text-base rounded-sm flex-1 md:flex-none">এখনই অর্ডার করুন</a>
+                <a href="#checkout-form" class="px-5 text-center py-2 bg-brand-red hover:bg-brand-orange transition-colors duration-300 text-white font-bengali text-sm md:text-base rounded-sm flex-1 md:flex-none">এখনই অর্ডার করুন</a>
                 <a href="#" class="px-5 text-center py-2 border border-brand-green text-brand-green hover:bg-brand-green hover:text-white transition-colors duration-300 font-bengali text-sm md:text-base rounded-sm flex-1 md:flex-none">আমাদের কল করুন</a>
             </div>
 
@@ -80,7 +80,7 @@
             </p>
 
             <div class="flex gap-4 justify-center md:justify-start order-3 md:order-none">
-                <a href="#" class="px-5 text-center py-2 bg-brand-red hover:bg-brand-orange transition-colors duration-300 text-white font-bengali text-sm md:text-base rounded-sm md:flex-none">এখনই অর্ডার করুন</a>
+                <a href="#checkout-form" class="px-5 text-center py-2 bg-brand-red hover:bg-brand-orange transition-colors duration-300 text-white font-bengali text-sm md:text-base rounded-sm md:flex-none">এখনই অর্ডার করুন</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 order-4">
