@@ -59,7 +59,7 @@
             <label for="new_primary_image" class="block text-sm font-medium text-text-secondary">
                 Upload New Primary Image (Optional)
             </label>
-            <input type="file" name="new_primary_image" id="new_primary_image"
+            <input type="file" name="new_primary_image" id="new_primary_image" 
                 class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none">
             <p class="text-xs text-brand-red mt-1">
                 Uploading a file here will **overwrite** the current primary image.
