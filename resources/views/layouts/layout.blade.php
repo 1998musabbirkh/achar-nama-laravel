@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'My Laravel App')</title>
+    <title>@yield('title', 'Achar Nama')</title>
+    @hasSection('description')
+    <meta name="description" content="@yield('description')">
+    @else
+    {{-- Default/Fallback description for pages without a specific one --}}
+    <meta name="description" content="Achar Nama provides high-quality, authentic achars. Explore our traditional flavors and order online!">
+    @endif
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <!-- Google Tag Manager -->
@@ -38,6 +44,7 @@
 
         gtag('config', 'G-Z61V31PWG0');
     </script>
+    @stack('head_scripts')
 </head>
 
 <body class="bg-bg font-sans">

@@ -48,8 +48,9 @@ class ProductController extends Controller
             'subtitle'                => 'required|string|max:255',
             'primary_description'     => 'required|string',
             'sub_description'         => 'required|string|max:500',
+            'product_slug'            => 'required|string|max:255|unique:products,product_slug|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
             'primary_image_file'      => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'gallery_images'          => 'nullable|array|max:4', 
+            'gallery_images'          => 'nullable|array|max:4',
             'gallery_images.*'        => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'variant_name.*'          => 'required|string|max:255',
             'variant_regular_price.*' => 'required|numeric|min:0',
@@ -68,6 +69,7 @@ class ProductController extends Controller
                 'subtitle'            => $validatedData['subtitle'],
                 'primary_description' => $validatedData['primary_description'],
                 'sub_description'     => $validatedData['sub_description'],
+                'product_slug'        => $validatedData['product_slug'],
             ]);
 
             $sortOrder = 0;
@@ -131,9 +133,11 @@ class ProductController extends Controller
     /**
      * Show a single product.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $product = Product::with(['images', 'variants'])->findOrFail($id);
+        $product = Product::with(['images', 'variants'])
+            ->where('product_slug', $slug)
+            ->firstOrFail(); 
         return view('products.show', compact('product'));
     }
 
@@ -154,6 +158,7 @@ class ProductController extends Controller
             'subtitle'          => 'required|string|max:255',
             'primary_description' => 'required|string',
             'sub_description'   => 'required|string|max:500',
+            'product_slug'      => 'required|string|max:255|unique:products,product_slug,' . $id . '|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
             'images'            => 'nullable|array|max:5',
             'images.*'          => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'delete_images'     => 'nullable|array',
@@ -181,6 +186,7 @@ class ProductController extends Controller
                 'subtitle'            => $validatedData['subtitle'],
                 'primary_description' => $validatedData['primary_description'],
                 'sub_description'     => $validatedData['sub_description'],
+                'product_slug'        => $validatedData['product_slug'], 
             ]);
 
             if (!empty($validatedData['deleted_variant_ids'])) {

@@ -38,6 +38,13 @@
                     class="mt-1 block w-full border border-main-border bg-bg text-text-primary rounded-md shadow-sm p-2 focus:border-brand-red focus:ring-brand-red"
                     value="{{ old('subtitle', $product->subtitle) }}">
             </div>
+            {{-- 💡 ADDED: Manual Product Slug Input --}}
+            <div>
+                <label for="product_slug" class="block text-sm font-medium text-text-secondary">Product Slug (URL Link)</label>
+                <input type="text" name="product_slug" id="product_slug" required placeholder="e.g., premium-blue-cotton-tshirt"
+                    class="mt-1 block w-full border border-main-border bg-bg text-text-primary rounded-md shadow-sm p-2 focus:border-brand-red focus:ring-brand-red"
+                    value="{{ old('product_slug', $product->product_slug) }}">
+            </div>
         </div>
 
         <div>

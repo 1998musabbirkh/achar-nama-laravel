@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GoogleLoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -12,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 Route::get('/order/success', [OrderController::class, 'success'])->name('order.success');
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');

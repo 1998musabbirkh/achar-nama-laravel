@@ -16,6 +16,7 @@ class Product extends Model
         'subtitle',
         'primary_description',
         'sub_description',
+        'product_slug',
     ];
 
     public function images()

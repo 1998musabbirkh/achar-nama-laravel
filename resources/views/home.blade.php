@@ -2,6 +2,46 @@
 
 @section('title', 'Home Page')
 
+@push('head_scripts')
+@php
+
+$siteUrl = config('app.url'); 
+
+$organizationSchema = [
+    "@context" => "https://schema.org",
+    "@type" => "Organization",
+    "name" => "Achar Nama",
+    "url" => $siteUrl,
+    "logo" => Vite::asset('resources/images/logo.png'),
+    "sameAs" => [
+        "https://www.facebook.com/acharnama", 
+        "https://www.instagram.com/1998acharnama", 
+    ],
+];
+
+$websiteSchema = [
+    "@context" => "https://schema.org",
+    "@type" => "WebSite",
+    "name" => "Achar Nama",
+    "url" => $siteUrl,
+];
+
+$homeJsonLd = [
+    $organizationSchema,
+    $websiteSchema
+];
+
+@endphp
+
+<meta property="og:title" content="Achar Nama">
+<meta property="og:description" content="Achar Nama provides high-quality, authentic achars. Explore our traditional flavors and order online!">
+<meta property="og:image" content="{{ Vite::asset('resources/images/logo.png') }}">
+<meta property="og:url" content="{{ url('/') }}"> <meta property="og:type" content="website"> 
+<script type="application/ld+json">
+{!! json_encode($homeJsonLd, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endpush
+
 @section('content')
 <div class="max-w-[1200px] mx-auto px-4 md:px-0 mt-4 rounded-sm">
     <img src="{{ Vite::asset('resources/images/banner.webp') }}" alt="" class="rounded-sm">
@@ -109,7 +149,7 @@
                         @endif
                     </p>
                 </div>
-                <a href="{{ route('product.show', $product->id) }}"
+                <a href="{{ route('product.show', $product->product_slug) }}"
                     class="text-text-primary bg-brand-red py-[6px] text-sm md:text-base font-bengali block w-full hover:bg-brand-orange transition-colors duration-300 rounded-sm">
                     অর্ডার করুন
                 </a>

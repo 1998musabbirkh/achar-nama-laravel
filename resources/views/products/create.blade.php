@@ -31,6 +31,11 @@
                 <input type="text" name="subtitle" id="subtitle" required
                     class="mt-1 block w-full border border-main-border bg-bg text-text-primary rounded-md shadow-sm p-2 focus:border-brand-red focus:ring-brand-red">
             </div>
+            <div>
+                <label for="product_slug" class="block text-sm font-medium text-text-secondary">Product Slug (URL Link)</label>
+                <input type="text" name="product_slug" id="product_slug" required placeholder="e.g., premium-blue-cotton-tshirt"
+                    class="mt-1 block w-full border border-main-border bg-bg text-text-primary rounded-md shadow-sm p-2 focus:border-brand-red focus:ring-brand-red">
+            </div>
         </div>
 
         <div>
@@ -47,14 +52,12 @@
 
         <h2 class="text-xl font-semibold text-text-primary border-b pb-2 mb-4">Product Images</h2>
 
-        {{-- MAIN IMAGE INPUT --}}
         <div>
             <label for="primary_image_file" class="block text-sm font-medium text-text-secondary">⭐ Main Product Image (Sets order 0)</label>
             <input type="file" name="primary_image_file" id="primary_image_file" required accept="image/*"
                 class="mt-1 block w-full text-sm text-text-primary border border-main-border rounded-md p-1.5 cursor-pointer focus:outline-none">
         </div>
 
-        {{-- GALLERY IMAGES INPUT --}}
         <div>
             <label for="gallery_images" class="block text-sm font-medium text-text-secondary">Gallery Images (Max 4)</label>
             <input type="file" name="gallery_images[]" id="gallery_images" multiple accept="image/*"

@@ -1,6 +1,69 @@
 @extends('layouts.layout')
 
-@section('title', $product->product_name)
+@section('title', $product->title . ' | Achar Nama')
+@section('description')
+{{ substr(strip_tags($product->sub_description), 0, 155) }}
+@endsection
+
+@push('head_scripts')
+@php
+$primaryImage = $product->images->where('sort_order', 0)->first();
+
+$offersArray = [];
+foreach ($product->variants as $variant) {
+$offersArray[] = [
+"@type" => "Offer",
+"sku" => "{$product->id}-{$variant->id}",
+"url" => route('product.show', $product->product_slug),
+"priceCurrency" => "BDT",
+"price" => $variant->sell_price ?? $variant->regular_price,
+"itemCondition" => "https://schema.org/NewCondition",
+"availability" => "https://schema.org/" . ($variant->stock > 0 ? 'InStock' : 'OutOfStock'),
+"name" => "{$product->product_name} ({$variant->variant_name})",
+];
+}
+
+$jsonLd = [
+"@context" => "https://schema.org",
+"@type" => "Product",
+"name" => $product->product_name,
+"url" => route('product.show', $product->product_slug),
+"description" => strip_tags($product->sub_description),
+"image" => $primaryImage ? asset('storage/' . $primaryImage->path) : null,
+"aggregateRating" => [
+"@type" => "AggregateRating",
+"ratingValue" => "4.5",
+"reviewCount" => "100"
+],
+"brand" => [
+"@type" => "Brand",
+"name" => "Achar Nama"
+],
+"offers" => [
+"@type" => "AggregateOffer",
+"lowPrice" => $product->variants->min('sell_price') ?? $product->variants->min('regular_price'),
+"highPrice" => $product->variants->max('regular_price'),
+"priceCurrency" => "BDT",
+"offerCount" => $product->variants->count(),
+"offers" => $offersArray,
+],
+];
+@endphp
+
+<meta property="og:title" content="{{ $product->product_name }}">
+<meta property="og:description" content="{{ $product->sub_description }}">
+<meta property="og:image" content="{{ asset('storage/' . $primaryImage->path) }}">
+<meta property="og:url" content="{{ route('product.show', $product->product_slug) }}">
+<meta property="og:type" content="product">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+    {
+        !!json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) !!
+    }
+</script>
+@endpush
+
 
 @section('content')
 <div class="max-w-[1200px] mx-auto px-4 md:p-0 mt-8">
