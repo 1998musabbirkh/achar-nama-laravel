@@ -19,6 +19,9 @@ Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 

@@ -58,6 +58,7 @@
                 <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="/">Home</a></li>
                 <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="{{ route('blog.index') }}">Blogs</a></li>
                 <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="{{ route('order.track') }}">Track Order</a></li>
+                <li class="text-brand-red font-medium transition-colors duration-300 hover:text-brand-orange font-sans"><a href="/contact">Contact Us</a></li>
             </ul>
 
             <div class="flex md:hidden items-center gap-4">
@@ -88,6 +89,9 @@
                 </li>
                 <li class="border-b border-main-border text-brand-red font-medium text-lg transition-all duration-300 hover:text-brand-orange hover:bg-surface-alt">
                     <a href="{{ route('order.track') }}" class="block px-6 py-4 text-sm">Track Order</a>
+                </li>
+                <li class="border-b border-main-border text-brand-red font-medium text-lg transition-all duration-300 hover:text-brand-orange hover:bg-surface-alt">
+                    <a href="/contact" class="block px-6 py-4 text-sm">Contact Us</a>
                 </li>
             </ul>
         </div>
