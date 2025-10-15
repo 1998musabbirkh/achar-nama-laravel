@@ -17,7 +17,7 @@ class ContactController extends Controller
             'message' => 'required|string',
         ]);
 
-        Mail::to('1998illegaldream@gmail.com') 
+        Mail::to('acharnama@gmail.com') 
             ->send(new ContactFormMail($validatedData)); 
             
 

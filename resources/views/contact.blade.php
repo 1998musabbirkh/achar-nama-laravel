@@ -94,7 +94,7 @@
                     </p>
                     <p class="text-text-secondary">
                         <strong class="font-semibold font-bengali">ইমেল (বিস্তারিত):</strong> <br>
-                        <a href="mailto:acharnama@gmail.com" class="text-text-secondary font-sans text-lg hover:underline">support@acharnama.com</a>
+                        <a href="mailto:acharnama@gmail.com" class="text-text-secondary font-sans text-lg hover:underline">acharnama@gmail.com</a>
                     </p>
                     <p class="text-text-secondary">
                         <strong class="font-semibold font-sans">WhatsApp:</strong> <br>
